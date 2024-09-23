@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween Countdown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Creepster', cursive;
+            background-image: url('https://images3.alphacoders.com/133/1334603.png');
+            background-size: 150%;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            z-index: 1;
+            text-shadow: 4px 4px 10px #000;
+        }
+
+        #countdown {
+            font-size: 3em;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 20px #ff9900;
+            z-index: 1;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pumpkin {
+            width: 150px;
+            margin-bottom: 20px;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .share-buttons {
+            margin: 20px 0;
+            z-index: 1;
+        }
+
+        .share-buttons a {
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 0 0 10px #ff9900;
+            transition: background-color 0.3s;
+        }
+
+        .share-buttons a:hover {
+            background-color: #ff9900;
+        }
+
+        .smoke-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .smoke {
+            position: absolute;
+            bottom: 0;
+            background: rgba(200, 200, 200, 0.5);
+            border-radius: 50%;
+            animation: smoke-rise 10s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        @keyframes smoke-rise {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+            50% { transform: translate(-20px, -100px) scale(1.5); opacity: 0.4; }
+            100% { transform: translate(20px, -300px) scale(2); opacity: 0; }
+        }
+
+        .smoke:nth-child(1) { width: 50px; height: 50px; left: 10%; animation-duration: 8s; animation-delay: 1s; }
+        .smoke:nth-child(2) { width: 60px; height: 60px; left: 25%; animation-duration: 9s; animation-delay: 2s; }
+        .smoke:nth-child(3) { width: 40px; height: 40px; left: 40%; animation-duration: 7s; animation-delay: 1.5s; }
+        .smoke:nth-child(4) { width: 70px; height: 70px; left: 55%; animation-duration: 11s; animation-delay: 3s; }
+        .smoke:nth-child(5) { width: 80px; height: 80px; left: 70%; animation-duration: 10s; animation-delay: 0.5s; }
+        .smoke:nth-child(6) { width: 50px; height: 50px; left: 15%; animation-duration: 12s; animation-delay: 2s; }
+        .smoke:nth-child(7) { width: 60px; height: 60px; left: 85%; animation-duration: 9s; animation-delay: 1s; }
+        .smoke:nth-child(8) { width: 40px; height: 40px; left: 30%; animation-duration: 10s; animation-delay: 2.5s; }
+        .smoke:nth-child(9) { width: 70px; height: 70px; left: 60%; animation-duration: 8s; animation-delay: 0.8s; }
+        .smoke:nth-child(10) { width: 50px; height: 50px; left: 90%; animation-duration: 11s; animation-delay: 1.2s; }
+    </style>
+</head>
+<body>
+    <h1>Countdown to Halloween!</h1>
+    
+    <a href="secret page.html" target="_blank">
+        <img src="https://freemiumicons.com/wp-content/uploads/2022/05/halloween-clock-icon.png" alt="Pumpkin" class="pumpkin">
+    </a>
+
+    <div id="countdown"></div>
+
+    <!-- Share Buttons -->
+    <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?text=Countdown%20to%20Halloween!%20Check%20this%20out!%20[YourWebsiteLink]" target="_blank">Share on Twitter</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=[YourWebsiteLink]" target="_blank">Share on Facebook</a>
+    </div>
+
+    <div class="smoke-container">
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            let halloweenDate = new Date(`October 31, ${currentYear}`);
+
+            if (today > halloweenDate) {
+                halloweenDate = new Date(`October 31, ${currentYear + 1}`);
+            }
+
+            const timeDifference = halloweenDate.getTime() - today.getTime();
+            const daysLeft = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+            document.getElementById('countdown').innerHTML = `${daysLeft} Days until Halloween!`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
